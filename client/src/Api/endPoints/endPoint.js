@@ -1,4 +1,4 @@
-export const baseURL = "http://localhost:5000"; 
+export const baseURL = "https://online-event-management-system-server.onrender.com"; 
 
 export const profilePic = (media)=>{
   return media ? `${baseURL}/uploads/${media}` : `${baseURL}/uploads/default.png`;
