@@ -20,8 +20,8 @@ export const endPoints = {
     },
 
     event: {
-      getAll: "events",                 // GET all events
-      getById: (id) => `events/${id}`,  // GET single event
+      getAll: "events",                 
+      getById: (id) => `events/${id}`,  
    
     },
     
