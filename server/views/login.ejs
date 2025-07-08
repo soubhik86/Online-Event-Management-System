@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin - <%=title%></title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="stylesheet/css/sb-admin-2.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3a0ca3;
+            --secondary-color: #f72585;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --gray-color: #6c757d;
+            --success-color: #4cc9f0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+            min-height: 100vh;
+        }
+        
+        .bg-login-image {
+            background: url('/images/login.jpg') center center;
+            background-size: cover;
+            min-height: 300px;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-login-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(26, 26, 46, 0.7) 0%, rgba(22, 33, 62, 0.5) 100%);
+        }
+        
+        .login-container {
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 12px !important;
+            overflow: hidden;
+            border: none;
+        }
+        
+        .login-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login-form-section {
+            background-color: #fff;
+            padding: 2rem;
+        }
+        
+        .btn-login {
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--primary-color);
+            border: none;
+            font-weight: 500;
+            padding: 0.75rem 1rem;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            border-radius: 8px !important;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-login:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(67, 97, 238, 0.3);
+        }
+        
+        .form-control-user {
+            transition: all 0.3s;
+            border-radius: 8px !important;
+            padding: 1rem 1.25rem;
+            font-size: 0.9rem;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .form-control-user:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+        }
+        
+        .social-btn {
+            transition: all 0.3s;
+            border-radius: 8px !important;
+            font-size: 0.8rem;
+            padding: 0.6rem;
+        }
+        
+        .social-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-google {
+            background-color: #db4437;
+            color: white;
+        }
+        
+        .btn-facebook {
+            background-color: #4267B2;
+            color: white;
+        }
+        
+        /* Typography improvements */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+        }
+        
+        .h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem !important;
+            color: var(--dark-color);
+        }
+        
+        .small {
+            font-size: 0.8rem;
+            color: var(--gray-color);
+        }
+        
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+        
+        /* Animation for form elements */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animated-form {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        
+        .animated-form:nth-child(1) { animation-delay: 0.1s; }
+        .animated-form:nth-child(2) { animation-delay: 0.2s; }
+        .animated-form:nth-child(3) { animation-delay: 0.3s; }
+        .animated-form:nth-child(4) { animation-delay: 0.4s; }
+        .animated-form:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* Custom checkbox */
+        .custom-control-input:checked~.custom-control-label::before {
+            background-color: var(--primary-color);
+            border-color: var(--primary-dark);
+        }
+        
+        .custom-control-label {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .bg-login-image {
+                min-height: 200px;
+                border-top-left-radius: 12px;
+                border-top-right-radius: 12px;
+                border-bottom-left-radius: 0;
+            }
+            
+            .login-form-section {
+                border-top-right-radius: 0;
+                border-bottom-left-radius: 12px;
+                border-bottom-right-radius: 12px;
+            }
+            
+            .h4 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Ripple effect style */
+        .btn-login {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+        
+        /* Focus state for form groups */
+        .has-focus label {
+            color: var(--primary-color);
+            transition: all 0.3s;
+        }
+        
+        /* Custom hr */
+        hr {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            margin: 1.5rem 0;
+        }
+        
+        /* Form group spacing */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5 login-container">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 login-form-section">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4 animated-form">Welcome Back!</h1>
+                                    </div>
+                                    <form class="user" action="/login/admin" method="post">
+                                        <div class="form-group animated-form">
+                                            <input type="email" class="form-control form-control-user"
+                                                id="exampleInputEmail" aria-describedby="emailHelp" name="email"
+                                                placeholder="Enter Email Address..." required>
+                                        </div>
+                                        <div class="form-group animated-form">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="Password" name="password" required>
+                                        </div>
+                                        <div class="form-group animated-form">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary btn-user btn-block btn-login animated-form" type="submit">
+                                            Login
+                                        </button>
+                                        <hr class="animated-form">
+                                        <div class="text-center animated-form">
+                                            <p class="small mb-3">Or login with</p>
+                                        </div>
+                                        <div class="row animated-form">
+                                            <div class="col-6">
+                                                <a href="/" class="btn btn-google btn-user btn-block social-btn">
+                                                    <i class="fab fa-google fa-fw"></i> Google
+                                                </a>
+                                            </div>
+                                            <div class="col-6">
+                                                <a href="/" class="btn btn-facebook btn-user btn-block social-btn">
+                                                    <i class="fab fa-facebook-f fa-fw"></i> Facebook
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <hr class="animated-form">
+                                    <div class="text-center animated-form">
+                                        <a class="small" href="/forgotPassword">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center animated-form">
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+    
+    <script>
+        // Add some interactive animations
+        $(document).ready(function() {
+            // Add hover effect to login card
+            $('.login-container').hover(
+                function() {
+                    $(this).css('transform', 'translateY(-5px)');
+                    $(this).css('box-shadow', '0 15px 35px rgba(0, 0, 0, 0.3)');
+                },
+                function() {
+                    $(this).css('transform', 'translateY(0)');
+                    $(this).css('box-shadow', '0 10px 30px rgba(0, 0, 0, 0.2)');
+                }
+            );
+            
+            // Add focus effects to form inputs
+            $('.form-control-user').focus(function() {
+                $(this).parent().addClass('has-focus');
+            }).blur(function() {
+                $(this).parent().removeClass('has-focus');
+            });
+            
+            // Add ripple effect to login button
+            $('.btn-login').on('click', function(e) {
+                var x = e.pageX - $(this).offset().left;
+                var y = e.pageY - $(this).offset().top;
+                var ripple = $('<span class="ripple"></span>');
+                
+                ripple.css({
+                    'top': y,
+                    'left': x
+                }).appendTo(this);
+                
+                setTimeout(function() {
+                    ripple.remove();
+                }, 1000);
+            });
+            
+            // Add animation to form elements when page loads
+            setTimeout(function() {
+                $('.animated-form').each(function(index) {
+                    $(this).css('opacity', '1');
+                });
+            }, 100);
+        });
+    </script>
+
+</body>
+
+</html>
