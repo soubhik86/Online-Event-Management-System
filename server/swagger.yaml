@@ -12,7 +12,7 @@ info:
     - Event Registration with QR Ticketing System
 
 servers:
-  - url: http://localhost:5000
+  - url: https://online-event-management-system-server.onrender.com
     description: Local Development Server
 
 tags:
