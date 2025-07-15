@@ -1,0 +1,55 @@
+<ul class="navbar-nav sidebar sidebar-dark accordion shadow" id="accordionSidebar"
+  style="width: 250px; background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);">
+
+  <!-- Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+    <div class="sidebar-brand-icon rotate-n-15">
+      <i class="fas fa-rocket" style="color: #00f9ff;"></i>
+    </div>
+    <div class="sidebar-brand-text mx-3 text-white">QRio Admin</div>
+  </a>
+
+  <hr class="sidebar-divider my-0" />
+  <li class="nav-item active">
+    <a class="nav-link" href="/">
+      <i class="fas fa-fw fa-chart-line" style="color: #00f9ff;"></i>
+      <span>Dashboard</span>
+    </a>
+  </li>
+
+  <hr class="sidebar-divider" />
+  <div class="sidebar-heading text-white">Management</div>
+
+  <!-- Events -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#eventMenu">
+      <i class="fas fa-fw fa-calendar" style="color: #00f9ff;"></i>
+      <span>Events</span>
+    </a>
+    <div id="eventMenu" class="collapse">
+      <div class="bg-dark py-2 collapse-inner rounded">
+        <a class="collapse-item text-white" href="/admin/events">Event List</a>
+        <a class="collapse-item text-white" href="/admin/events/add">Create Event</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Blog Section -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#blogMenu">
+      <i class="fas fa-fw fa-blog" style="color: #00f9ff;"></i>
+      <span>Blogs</span>
+    </a>
+    <div id="blogMenu" class="collapse">
+      <div class="bg-dark py-2 collapse-inner rounded">
+        <a class="collapse-item text-white" href="/admin/blogs">Blog List</a>
+        <a class="collapse-item text-white" href="/admin/blogs/add">Create Blog</a>
+      </div>
+    </div>
+  </li>
+
+  <hr class="sidebar-divider d-none d-md-block" />
+  <div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+</ul>

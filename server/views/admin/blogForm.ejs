@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,800,900" rel="stylesheet">
+  <link href="/stylesheet/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+<body id="page-top">
+  <div id="wrapper">
+    <%- include('../layout/sidebar') %>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <%- include('../layout/topbar', { data: data }) %>
+
+        <div class="container-fluid">
+          <h1 class="h3 mb-4 text-gray-800"><%= title %></h1>
+
+          <% if (locals.error && error.length > 0) { %>
+            <div class="alert alert-danger"><%= error %></div>
+          <% } %>
+          <% if (locals.success && success.length > 0) { %>
+            <div class="alert alert-success"><%= success %></div>
+          <% } %>
+
+          <form action="<%= formAction %>" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="title">Blog Title</label>
+              <input type="text" name="title" class="form-control" id="title" value="<%= blog.title || '' %>" required>
+            </div>
+
+            <div class="form-group">
+              <label for="content">Blog Content</label>
+              <textarea name="content" id="content" rows="6" class="form-control" required><%= blog.content || '' %></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="image">Image Upload</label>
+              <input type="file" name="image" class="form-control-file" id="image">
+              <% if (blog.image) { %>
+                <p class="mt-2">Current Image:</p>
+                <img src="/uploads/<%= blog.image %>" alt="Blog Image" class="img-thumbnail" style="max-width: 200px;">
+              <% } %>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Blog</button>
+            <a href="/admin/blogs" class="btn btn-secondary ml-2">Cancel</a>
+          </form>
+        </div>
+      </div>
+
+      <%- include('../layout/footer') %>
+    </div>
+  </div>
+
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/js/sb-admin-2.min.js"></script>
+</body>
+</html>

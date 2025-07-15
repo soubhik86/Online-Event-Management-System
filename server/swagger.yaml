@@ -1,0 +1,329 @@
+openapi: 3.0.0
+info:
+  title: QRio Event Management API
+  version: 1.0.0
+  description: |
+    This is the official API documentation for the QRio Event Management System.
+
+    Features:
+    - User Registration, Email Verification & Authentication
+    - Event Listing & Admin Management
+    - Blog Posting with Comments & Likes
+    - Event Registration with QR Ticketing System
+
+servers:
+  - url: https://online-event-management-system-server.onrender.com
+    description: Local Development Server
+
+tags:
+  - name: Auth
+    description: User authentication and profile
+  - name: Event
+    description: Public and Admin event management
+  - name: Blog
+    description: Blog post, likes and comments
+  - name: Registration
+    description: Event registration
+  - name: Ticket
+    description: Ticket management and QR download
+
+paths:
+
+  # ------------------ AUTH ROUTES ------------------
+
+  /register:
+    post:
+      tags: [Auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [name, email, password, profilePicture]
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                profilePicture:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: User registered successfully
+
+  /verify-email:
+    post:
+      tags: [Auth]
+      summary: Verify email with OTP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                otp:
+                  type: string
+      responses:
+        '200':
+          description: Email verified
+
+  /login:
+    post:
+      tags: [Auth]
+      summary: Login a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+
+  /forgot-password:
+    post:
+      tags: [Auth]
+      summary: Request password reset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        '200':
+          description: Password reset email sent
+
+  /reset-password:
+    post:
+      tags: [Auth]
+      summary: Reset password using token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                newPassword:
+                  type: string
+      responses:
+        '200':
+          description: Password successfully reset
+
+  /update-profile:
+    post:
+      tags: [Auth]
+      summary: Update logged-in user's profile
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                profilePicture:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Profile updated
+
+  # ------------------ EVENT ROUTES ------------------
+
+  /events:
+    get:
+      tags: [Event]
+      summary: Get all public events
+      responses:
+        '200':
+          description: List of events
+
+  /events/{id}:
+    get:
+      tags: [Event]
+      summary: Get a single event by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Event details
+
+  /admin/events:
+    get:
+      tags: [Event]
+      summary: List all events (admin)
+      responses:
+        '200':
+          description: List of all events for admin
+
+  /admin/events/add:
+    post:
+      tags: [Event]
+      summary: Create a new event (admin)
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                date:
+                  type: string
+                  format: date
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Event created
+
+  # ------------------ BLOG ROUTES ------------------
+
+  /blogs:
+    get:
+      tags: [Blog]
+      summary: Get all blog posts
+      responses:
+        '200':
+          description: List of blogs
+
+  /blogs/{blogId}/comment:
+    post:
+      tags: [Blog]
+      summary: Add comment to a blog
+      parameters:
+        - name: blogId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment:
+                  type: string
+      responses:
+        '200':
+          description: Comment added
+
+  /blogs/{blogId}/comments:
+    get:
+      tags: [Blog]
+      summary: Get all comments for a blog
+      parameters:
+        - name: blogId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of comments
+
+  /blogs/like/{id}:
+    post:
+      tags: [Blog]
+      summary: Like a blog post
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Blog liked
+
+  # ------------------ REGISTRATION ROUTES ------------------
+
+  /register/{eventId}:
+    post:
+      tags: [Registration]
+      summary: Register current user to an event
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Registration successful
+
+  /my-registrations:
+    get:
+      tags: [Registration]
+      summary: Get current user's event registrations
+      responses:
+        '200':
+          description: List of registrations
+
+  # ------------------ TICKET ROUTES ------------------
+
+  /ticket/{eventId}:
+    get:
+      tags: [Ticket]
+      summary: Get ticket by event ID
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ticket data returned
+
+  /ticket/download/{ticketId}:
+    get:
+      tags: [Ticket]
+      summary: Download QR ticket by ticket ID
+      parameters:
+        - name: ticketId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: QR image downloaded
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

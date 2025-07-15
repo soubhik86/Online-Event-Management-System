@@ -1,0 +1,39 @@
+<!-- Topbar -->
+<nav class="navbar navbar-expand navbar-dark topbar mb-4 static-top shadow"
+     style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);">
+
+  <!-- Sidebar Toggle (Topbar) -->
+  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3 text-white">
+    <i class="fa fa-bars"></i>
+  </button>
+
+  <!-- Search -->
+  <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <div class="input-group">
+      <input type="text" class="form-control bg-light border-0 small" placeholder="Search..." />
+      <div class="input-group-append">
+        <button class="btn btn-info" type="button">
+          <i class="fas fa-search fa-sm text-white"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Right Side: User Info and Logout -->
+  <ul class="navbar-nav ml-auto align-items-center">
+    <li class="nav-item">
+      <span class="mr-2 d-none d-lg-inline text-white small">
+        <%= data?.name || 'Admin' %>
+      </span>
+    </li>
+    <li class="nav-item">
+      <img class="img-profile rounded-circle mr-3" src="/image/img/undraw_profile.svg"
+           style="height: 32px; width: 32px;" />
+    </li>
+    <li class="nav-item">
+      <a class="btn btn-sm btn-outline-light" href="/logout">
+        <i class="fas fa-sign-out-alt fa-sm mr-1"></i> Logout
+      </a>
+    </li>
+  </ul>
+</nav>

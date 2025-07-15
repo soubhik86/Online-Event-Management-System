@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,800,900" rel="stylesheet">
+  <link href="/stylesheet/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <%- include('../layout/sidebar') %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <!-- Topbar -->
+        <%- include('../layout/topbar', { data: data }) %>
+
+        <!-- Page Content -->
+        <div class="container-fluid">
+          <!-- Page Heading -->
+          <h1 class="h3 mb-4 text-gray-800"><%= title %></h1>
+
+          <% if (locals.error && error.length > 0) { %>
+            <div class="alert alert-danger"><%= error %></div>
+          <% } %>
+          <% if (locals.success && success.length > 0) { %>
+            <div class="alert alert-success"><%= success %></div>
+          <% } %>
+
+          <form action="<%= formAction %>" method="POST" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="title">Event Title</label>
+                <input type="text" class="form-control" name="title" id="title" value="<%= event.title || '' %>" required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="date">Event Date</label>
+                <input type="date" class="form-control" name="date" id="date" value="<%= event.date ? event.date.toISOString().split('T')[0] : '' %>" required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="time">Time</label>
+                <input type="time" class="form-control" name="time" id="time" value="<%= event.time || '' %>" required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="location">Location</label>
+                <input type="text" class="form-control" name="location" id="location" value="<%= event.location || '' %>" required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="type">Event Type</label>
+                <select class="form-control" name="type" id="type" required>
+                  <option value="">-- Select Type --</option>
+                  <option value="online" <%= event.type === 'online' ? 'selected' : '' %>>Online</option>
+                  <option value="offline" <%= event.type === 'offline' ? 'selected' : '' %>>Offline</option>
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="status">Event Status</label>
+                <select class="form-control" name="status" id="status" required>
+                  <option value="">-- Select Status --</option>
+                  <option value="upcoming" <%= event.status === 'upcoming' ? 'selected' : '' %>>Upcoming</option>
+                  <option value="ongoing" <%= event.status === 'ongoing' ? 'selected' : '' %>>Ongoing</option>
+                  <option value="completed" <%= event.status === 'completed' ? 'selected' : '' %>>Completed</option>
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="seats">Total Seats</label>
+                <input type="number" class="form-control" name="seats" id="seats" min="0" value="<%= event.seats || '' %>" required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="ticketPrice">Ticket Price (₹)</label>
+                <input type="number" class="form-control" name="ticketPrice" id="ticketPrice" min="0" value="<%= event.ticketPrice || '' %>" required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="category">Category</label>
+                <input type="text" class="form-control" name="category" id="category" value="<%= event.category || '' %>" required>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="organizer">Organizer</label>
+                <select class="form-control" name="organizer" id="organizer" required>
+                  <option value="">-- Select Organizer --</option>
+                  <% organizers.forEach(org => { %>
+                    <option value="<%= org._id %>" <%= event.organizer && event.organizer.toString() === org._id.toString() ? 'selected' : '' %>>
+                      <%= org.name %> (<%= org.email %>)
+                    </option>
+                  <% }) %>
+                </select>
+              </div>
+
+              <div class="col-md-12 mb-3">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" class="form-control" rows="4" required><%= event.description || '' %></textarea>
+              </div>
+
+              <div class="col-md-6 mb-4">
+                <label for="image">Event Banner Image</label>
+                <input type="file" class="form-control-file" name="image" id="image">
+                <% if (event.bannerImage) { %>
+                  <p class="mt-2">Current Image:</p>
+                  <img src="/uploads/<%= event.bannerImage %>" alt="Banner" class="img-thumbnail" style="max-width: 200px;">
+                <% } %>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+              <%= event._id ? 'Update Event' : 'Create Event' %>
+            </button>
+            <a href="/admin/events" class="btn btn-secondary ml-2">Cancel</a>
+          </form>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <%- include('../layout/footer') %>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/js/sb-admin-2.min.js"></script>
+</body>
+
+</html>

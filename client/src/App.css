@@ -1,0 +1,9 @@
+/* index.css or App.css */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #121212;
+  font-family: 'Montserrat', sans-serif;
+}

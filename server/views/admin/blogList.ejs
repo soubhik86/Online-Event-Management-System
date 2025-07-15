@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Blog List</title>
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,800,900" rel="stylesheet">
+  <link href="/stylesheet/css/sb-admin-2.min.css" rel="stylesheet">
+  <style>
+    .card:hover {
+      transform: translateY(-4px);
+      transition: 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body id="page-top">
+  <div id="wrapper">
+    <%- include('../layout/sidebar') %>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <%- include('../layout/topbar', { data: data }) %>
+
+        <div class="container-fluid">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <div>
+              <h1 class="h4 mb-0 text-gray-800">Blog List</h1>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-white pl-0 py-1">
+                  <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Blogs</li>
+                </ol>
+              </nav>
+            </div>
+            <a href="/admin/blogs/add" class="btn btn-sm btn-primary shadow-sm">
+              <i class="fas fa-plus fa-sm text-white-50"></i> Add New Blog
+            </a>
+          </div>
+
+          <div class="row">
+            <% if (blogs && blogs.length > 0) { %>
+              <% blogs.forEach(blog => { %>
+                <div class="col-md-6 col-lg-4 mb-4">
+                  <div class="card border-left-info shadow-sm h-100">
+                    <% if (blog.image) { %>
+                      <img src="/uploads/<%= blog.image %>" class="card-img-top" style="height: 160px; object-fit: cover;">
+                    <% } %>
+                    <div class="card-body">
+                      <h5 class="card-title text-info"><%= blog.title %></h5>
+                      <p class="card-text"><%= blog.content.substring(0, 100) %>...</p>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Likes:</strong> <%= blog.likes.length %></li>
+                        <li class="list-group-item"><strong>Comments:</strong> <%= blog.commentCount %></li>
+                        <li class="list-group-item">
+                          <strong>Author:</strong> <%= blog.createdBy?.name || 'Unknown' %>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              <% }) %>
+            <% } else { %>
+              <div class="col-12">
+                <div class="alert alert-info text-center">No blogs found.</div>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <%- include('../layout/footer') %>
+    </div>
+  </div>
+
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/js/sb-admin-2.min.js"></script>
+</body>
+</html>
